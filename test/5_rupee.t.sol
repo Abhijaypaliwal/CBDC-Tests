@@ -68,10 +68,7 @@ contract CBDC_test is Test, _1Rupee(msg.sender), buy_ERupee {
         console.log("controller is", _1Rupee_CBDC.return_controller());
         erupee.changeOwner(msg.sender);
         erupee.buy_With_note_denominations(999000000000000000000);
-        erupee.transferAmount(
-            999000000000000000000,
-            0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
-        );
+        erupee.transferAmount(999000000000000000000, 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266);
 
         // console.log()
     }
@@ -79,6 +76,6 @@ contract CBDC_test is Test, _1Rupee(msg.sender), buy_ERupee {
     function testMint() external {
         vm.startPrank(address(erupee));
         console.log("balance is", RupeeToken.balanceOf(msg.sender));
-        //  erupee.buy_With_note_denominations(1000000000000000000);
+       //  erupee.buy_With_note_denominations(1000000000000000000);
     }
 }
