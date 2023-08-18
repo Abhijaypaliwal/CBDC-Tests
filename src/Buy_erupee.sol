@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.16;
 
+import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+
 interface IMyToken {
     function safeMint(address to) external;
 
@@ -11,10 +13,8 @@ interface IMyToken {
     function burn_nft(address _address) external;
 }
 
-import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
-
 contract buy_ERupee {
-    address public  _owner;
+    address public _owner;
     address public one_Rupee_contract;
     address public two_Rupee_contract;
     address public five_Rupee_contract;
@@ -50,9 +50,30 @@ contract buy_ERupee {
         );
         _;
     }
+
+    /**
+     * @notice Changes the owner of the contract.
+     * @param _newOwner Address of the new owner.
+     */
+
     function changeOwner(address _newOwner) public {
         _owner = _newOwner;
     }
+
+    /**
+     * @notice Sets the addresses of various rupee denomination contracts.
+     * @param _1Rupee Address of the 1 Rupee contract.
+     * @param _2Rupee Address of the 2 Rupee contract.
+     * @param _5Rupee Address of the 5 Rupee contract.
+     * @param _10Rupee Address of the 10 Rupee contract.
+     * @param _20Rupee Address of the 20 Rupee contract.
+     * @param _50Rupee Address of the 50 Rupee contract.
+     * @param _100Rupee Address of the 100 Rupee contract.
+     * @param _200Rupee Address of the 200 Rupee contract.
+     * @param _500Rupee Address of the 500 Rupee contract.
+     * @param _rupeeContract_ERC20 Address of the Rupee ERC20 contract.
+     * @return Returns true after successfully setting the contracts.
+     */
 
     function setContracts(
         address _1Rupee,
@@ -66,26 +87,6 @@ contract buy_ERupee {
         address _500Rupee,
         address _rupeeContract_ERC20
     ) external OnlyOwner returns (bool) {
-        /*  one_Rupee_contract = _1Rupee;
-        two_Rupee_contract = _2Rupee;
-        five_Rupee_contract = _5Rupee;
-        ten_Rupee_contract = _10Rupee;
-        twenty_Rupee_contract = _20Rupee;
-        fifty_Rupee_contract = _50Rupee;
-        one_hundred_Rupee_contract = _100Rupee;
-        two_hundred_Rupee_contract = _200Rupee;
-        five_hundred_Rupee_contract = _500Rupee;
-        rupee_contract_ERC20 = _rupeeContract_ERC20; */
-        // address _1Rupee = 0xD54d3F6C3b863f29D4FC1d1e2Ae0EAC27b13d2EF;
-        // address _2Rupee = 0xE5FdE1987e7Ec52b92E4f939c2B64299748a3D44;
-        // address _5Rupee = 0x8CEC8D539D468Cd19563174eFf7705067A9FD582;
-        // address _10Rupee = 0xB16c4005ACAb743e1EF2039f4D3E1Fd693beA34d;
-        // address _20Rupee = 0x7D148294204E94e9592bE603C15e231b67Fb1d87;
-        // address _50Rupee = 0xCa7dd6c3Edf65eeC61CeC7212df319610A72e479;
-        // address _100Rupee = 0xe0C8919C807D262dEB2957eEfA512FE383094C83;
-        // address _200Rupee = 0xdF035655Ff59008A07F46E16B1B9788FE4169eA2;
-        // address _500Rupee = 0xec4AE94411412cBeD68C531A5dF7a0A7A1534dE3;
-        // address _rupeeContract_ERC20 = 0x7e05b6aF7e51b614b9920A0328a91C3a09A3315a;
         rupee_contract_ERC20 = _rupeeContract_ERC20;
         _rupeeContractList = [
             _500Rupee,
@@ -101,9 +102,20 @@ contract buy_ERupee {
         return true;
     }
 
+    /**
+     * @notice Retrieves the user's fund amount.
+     * @param _user Address of the user.
+     * @return Returns the user's fund amount.
+     */
+
     function getUserFundAmt(address _user) public view returns (uint) {
         return userFundsMapping[_user];
     }
+
+    /**
+     * @notice Adds an address to the blacklist.
+     * @param _blackListAddr Address to be blacklisted.
+     */
 
     function blackList(address _blackListAddr) public OnlyOwner {
         isBlackListedMapping[_blackListAddr] = true;
@@ -118,10 +130,15 @@ contract buy_ERupee {
         return (_RupeeNum, _num);
     }
 
+    /**
+     * @notice Buys eRupee using notes of various denominations.
+     * @param _amount Amount of eRupee to be purchased in wei.
+     */
+
     function buy_With_note_denominations(uint256 _amount) external {
         uint256[9] memory userNoteCount;
-       IERC20 _rupeeContract = IERC20(rupee_contract_ERC20);
-       _rupeeContract.transferFrom(msg.sender, address(this), _amount);
+        IERC20 _rupeeContract = IERC20(rupee_contract_ERC20);
+        _rupeeContract.transferFrom(msg.sender, address(this), _amount);
         uint256 _num1 = _amount / (10 ** 18);
 
         for (uint256 k = 0; k < 9; k++) {
@@ -151,15 +168,16 @@ contract buy_ERupee {
         return _availArr;
     }
 
+    /**
+     * @notice Transfers eRupee amount to another address using note denominations.
+     * @param _amount Amount of eRupee to be transferred in wei.
+     * @param _to Address of the recipient.
+     */
+
     function transferAmount(
         uint256 _amount,
         address _to
     ) public blackListedCheck(_to) {
-        //uint256[] public availArr = [5, 0, 0, 0, 0, 0, 0, 0, 0];
-        //uint256[] public neededArr = [4, 0, 1, 1, 0, 0, 0, 1, 0];
-        //uint256[] public denominationsNotes = [500, 200, 100, 50, 20, 10, 5, 2, 1];
-        //uint256[] public transferArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-        //uint256 public rem_mint = 0;
         require(
             userFundsMapping[msg.sender] >= _amount,
             "funds are less than requested"
@@ -203,10 +221,7 @@ contract buy_ERupee {
                 break;
             }
         }
-        // send denom_burn from sender's wallet to 0 address-done
-        // send transferArr's content to reciever's address- done
-        // mint notes of rem_mint and send to sender- done
-        // mint notes of rem_change and send to reciever- done
+
         sendNFT(transferArr, _to, rem_mint, rem_change);
     }
 
