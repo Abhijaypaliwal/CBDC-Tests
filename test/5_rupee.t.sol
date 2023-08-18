@@ -18,6 +18,10 @@ contract CBDC_test is Test, _1Rupee(msg.sender), buy_ERupee {
     buy_ERupee public erupee;
     GLDToken public RupeeToken;
 
+     /**
+     * @notice Sets up the initial state of the test contract.
+     */
+
     function setUp() public {
         vm.startPrank(msg.sender);
         _1Rupee_CBDC = new _1Rupee(msg.sender);
@@ -42,6 +46,10 @@ contract CBDC_test is Test, _1Rupee(msg.sender), buy_ERupee {
         // address CBDC_ADDR = address(_1Rupee_CBDC);
         // console.log(CBDC_ADDR);
     }
+
+     /**
+     * @notice Executes various tests on the CBDC contract.
+     */
 
     function testContract() external {
         address CBDC_ADDR = address(_1Rupee_CBDC);
@@ -72,6 +80,10 @@ contract CBDC_test is Test, _1Rupee(msg.sender), buy_ERupee {
 
         // console.log()
     }
+
+     /**
+     * @notice Executes a test related to minting new tokens.
+     */
 
     function testMint() external {
         vm.startPrank(address(erupee));

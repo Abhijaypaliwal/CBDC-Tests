@@ -156,6 +156,7 @@ contract _10Rupee is ERC721, Ownable {
     modifier onlyOwnerContract() {
         require(msg.sender == controllerAddr, "not called by owner");
         _;
+
     }
     address controllerAddr;
 
@@ -257,6 +258,7 @@ contract _50Rupee is ERC721, Ownable {
 
     constructor(address _controller) ERC721("50 Rupees", "Rs. 50") {
         controllerAddr = _controller;
+
     }
 
     function safeMint(address to) public  {
