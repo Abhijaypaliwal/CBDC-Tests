@@ -34,7 +34,7 @@ pragma solidity ^0.8.16;
 
 import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
-interface IMyToken {z
+interface IMyToken {
     function safeMint(address to) external;
 
     function transfer_rupee(address _from, address _to) external;
@@ -60,15 +60,7 @@ contract buy_ERupee {
     uint256 public _5RupeeCount = 0;
     uint256 public _10RupeeCount;
     uint256 public _20RupeeCount;
-    uint256 public _num; * @title Central Bank Digital Currency (CBDC) Smart Contract
- * @notice This smart contract facilitates the issuance, exchange, and management
- *         of digital tokens representing various rupee denominations on the blockchain.
- * @dev The contract provides functionalities for minting, transferring, and managing
- *      digital tokens equivalent to physical currency denominations.
- * @dev This contract is designed to enable the creation of a Central Bank Digital Currency (CBDC)
- *      ecosystem, allowing for seamless interaction between traditional physical currency and blockchain technology.
- * @dev The CBDC smart contract operates as a bridge, facilitating the conversion of physical currency into digital tokens,
- *      and enabling secure and efficient digital transactions.
+    uint256 public _num; 
     mapping(address => uint256) public userFundsMapping;
     mapping(address => bool) public isBlackListedMapping;
     uint256[] denominationArr = [500, 200, 100, 50, 20, 10, 5, 2, 1];
