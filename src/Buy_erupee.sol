@@ -1,22 +1,21 @@
 // SPDX-License-Identifier: MIT
 
-
-                                                                      
-//     ,o888888o.    8 888888888o   8 888888888o.          ,o888888o.    
-//    8888     `88.  8 8888    `88. 8 8888    `^888.      8888     `88.  
-// ,8 8888       `8. 8 8888     `88 8 8888        `88. ,8 8888       `8. 
-// 88 8888           8 8888     ,88 8 8888         `88 88 8888           
-// 88 8888           8 8888.   ,88' 8 8888          88 88 8888           
-// 88 8888           8 8888888888   8 8888          88 88 8888           
-// 88 8888           8 8888    `88. 8 8888         ,88 88 8888           
-// `8 8888       .8' 8 8888      88 8 8888        ,88' `8 8888       .8' 
-//    8888     ,88'  8 8888    ,88' 8 8888    ,o88P'      8888     ,88'  
-//     `8888888P'    8 888888888P   8 888888888P'          `8888888P'    
-
+/*                                                                     
+    ,o888888o.    8 888888888o   8 888888888o.          ,o888888o.    
+   8888     `88.  8 8888    `88. 8 8888    `^888.      8888     `88.  
+,8 8888       `8. 8 8888     `88 8 8888        `88. ,8 8888       `8. 
+88 8888           8 8888     ,88 8 8888         `88 88 8888           
+88 8888           8 8888.   ,88' 8 8888          88 88 8888           
+88 8888           8 8888888888   8 8888          88 88 8888           
+88 8888           8 8888    `88. 8 8888         ,88 88 8888           
+`8 8888       .8' 8 8888      88 8 8888        ,88' `8 8888       .8' 
+   8888     ,88'  8 8888    ,88' 8 8888    ,o88P'      8888     ,88'  
+    `8888888P'    8 888888888P   8 888888888P'          `8888888P'    
+*/
 
 // ╔═╗┌─┐┌┐┌┌┬┐┬─┐┌─┐┬    ╔╗ ┌─┐┌┐┌┬┌─  ╔╦╗┬┌─┐┬┌┬┐┌─┐┬    ╔═╗┬ ┬┬─┐┬─┐┌─┐┌┐┌┌─┐┬ ┬
 // ║  ├┤ │││ │ ├┬┘├─┤│    ╠╩╗├─┤│││├┴┐   ║║││ ┬│ │ ├─┤│    ║  │ │├┬┘├┬┘├┤ ││││  └┬┘
-// ╚═╝└─┘┘└┘ ┴ ┴└─┴ ┴┴─┘  ╚═╝┴ ┴┘└┘┴ ┴  ═╩╝┴└─┘┴ ┴ ┴ ┴┴─┘  ╚═╝└─┘┴└─┴└─└─┘┘└┘└─┘ ┴ 
+// ╚═╝└─┘┘└┘ ┴ ┴└─┴ ┴┴─┘  ╚═╝┴ ┴┘└┘┴ ┴  ═╩╝┴└─┘┴ ┴ ┴ ┴┴─┘  ╚═╝└─┘┴└─┴└─└─┘┘└┘└─┘ ┴
 
 /**
  * @title Central Bank Digital Currency (CBDC) Smart Contract
@@ -29,7 +28,7 @@
  * @dev The CBDC smart contract operates as a bridge, facilitating the conversion of physical currency into digital tokens,
  *      and enabling secure and efficient digital transactions.
  */
- 
+
 pragma solidity ^0.8.16;
 
 import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
@@ -46,21 +45,9 @@ interface IMyToken {
 
 contract buy_ERupee {
     address public _owner;
-    address public one_Rupee_contract;
-    address public two_Rupee_contract;
-    address public five_Rupee_contract;
-    address public ten_Rupee_contract;
-    address public twenty_Rupee_contract;
-    address public fifty_Rupee_contract;
-    address public one_hundred_Rupee_contract;
-    address public two_hundred_Rupee_contract;
-    address public five_hundred_Rupee_contract;
     address public rupee_contract_ERC20;
     address[9] public _rupeeContractList;
-    uint256 public _5RupeeCount = 0;
-    uint256 public _10RupeeCount;
-    uint256 public _20RupeeCount;
-    uint256 public _num; 
+    uint256 public _num;
     mapping(address => uint256) public userFundsMapping;
     mapping(address => bool) public isBlackListedMapping;
     uint256[] denominationArr = [500, 200, 100, 50, 20, 10, 5, 2, 1];
